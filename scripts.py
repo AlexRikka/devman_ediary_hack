@@ -4,7 +4,6 @@ import random
 
 
 def get_child(schoolkid_name):
-    kid = None
     try:
         kid = Schoolkid.objects.filter(
             full_name__contains=schoolkid_name).get()
@@ -32,8 +31,8 @@ def create_commendation(schoolkid_name, subject_title):
     child_lessons = Lesson.objects.filter(
         year_of_study=child.year_of_study,
         group_letter=child.group_letter,
-        subject__title=subject_title)
-    lesson = child_lessons.order_by('date').first()
+        subject__title=subject_title).order_by('date')
+    lesson = child_lessons.first()
     with open('commendations.txt', encoding='utf-8') as f:
         commendations = f.read().splitlines()
     comm_text = random.choice(commendations)
